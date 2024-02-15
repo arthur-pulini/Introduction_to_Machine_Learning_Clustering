@@ -1,6 +1,6 @@
 import pandas as pd
 from sklearn.preprocessing import Normalizer
-from sklearn.cluster import k_means
+from sklearn.cluster import KMeans
 
 datas = pd.read_csv("/home/arthur-pulini/Documentos/Programação/Machine learning Alura/Alura_Credit_Card/CC GENERAL.csv")
 datas.drop(columns=['CUST_ID', 'TENURE'], inplace=True) #Retirando algumas colunas que não fazem sentido ao cluster
@@ -18,3 +18,9 @@ print(missing)
 #Fazendo a normalização dos dados
 values = Normalizer().fit_transform(datas.values)
 print(values)
+
+#Para este algorito será usado o modelo de clusterização Kmeans, modelo de tipo centróide
+#n_init = 10 informa que o kmeans deve rodar 10 vezes seguidas e retornar 10x o mesmo valor, isso para termos confiança no resultado
+#max_iter informa o número de iterações
+kmeans = KMeans(n_clusters = 5, n_init = 10, max_iter = 300)
+yPred = kmeans.fit_predict(values)
