@@ -30,3 +30,7 @@ yPred = kmeans.fit_predict(values)
 labels = kmeans.labels_
 silhouette = metrics.silhouette_score(values, labels, metric='euclidean')
 print(silhouette)
+
+#Aplicando Índice de Davies-Bouldin
+dbs = metrics.davies_bouldin_score(values, labels)
+print(dbs)
