@@ -34,3 +34,7 @@ print(silhouette)
 #Aplicando Índice de Davies-Bouldin
 dbs = metrics.davies_bouldin_score(values, labels)
 print(dbs)
+
+#Aplicando Índice Calinski
+calinski = metrics.calinski_harabasz_score(values, labels)
+print(calinski)
