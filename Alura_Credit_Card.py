@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from sklearn.preprocessing import Normalizer
 from sklearn.cluster import KMeans
 from sklearn import metrics
@@ -65,3 +66,24 @@ print(s5, dbs5, calinski5)
 
 #A partir das comparações será escolhida a configurção com 5 clusters, ela se mostrou mais eficaz com os resultados de silhouette e davies_bouldin,
 #já o calinski_harabasz não teve uma variação significativa se comparado com a de 3 clusters
+
+#Comparando os dados com dados aleatórios
+randomData = np.random.rand(8950, 16)
+s6, dbs6, calinski6 = clusteringAlgorithm(5, randomData)
+print(s6, dbs6, calinski6)
+
+print('.')
+
+#validando a estabilidade do cluster
+set1, set2, set3, = np.array_split(values, 3)
+sSet1, dbsSet1, calinskiSet1 = clusteringAlgorithm(5, set1)
+print(sSet1, dbsSet1, calinskiSet1)
+
+sSet2, dbsSet2, calinskiSet2 = clusteringAlgorithm(5, set2)
+print(sSet2, dbsSet2, calinskiSet2)
+
+sSet3, dbsSet3, calinskiSet3 = clusteringAlgorithm(5, set3)
+print(sSet3, dbsSet3, calinskiSet3)
+
+#Como os resultados são parecidos, evidencia que o cluster é estável
+
