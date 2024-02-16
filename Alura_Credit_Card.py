@@ -121,3 +121,34 @@ nClients = description.size()
 description = description.mean()
 description['n_clients'] = nClients
 print(description)
+
+#Interpretando os clusters:
+#            BALANCE    PURCHASES  CASH_ADVANCE  CREDIT_LIMIT     PAYMENTS  n_clients
+#cluster                                                                              
+#0        1987.146873   858.326286    420.107194   2226.699029  1338.974045        412
+#1        3037.962543   385.248630   1636.917210   4495.771989   968.890376       2649
+#2        1140.395363  3266.466710    182.900631   4096.794388  3034.900772       1541
+#3        1794.024195   475.494823   3270.246792   3976.372399  4709.556601       1072
+#4         444.212219   629.173858    141.655729   5134.705973   814.396458       3276
+
+description = datas.groupby("cluster")[["BALANCE", "PURCHASES", "CASH_ADVANCE", "CREDIT_LIMIT", "PAYMENTS", "PRC_FULL_PAYMENT"]]
+nClients = description.size()
+description = description.mean()
+description['n_clients'] = nClients
+print(description)
+
+#            BALANCE    PURCHASES  CASH_ADVANCE  CREDIT_LIMIT     PAYMENTS  PRC_FULL_PAYMENT   n_clients
+#cluster                                                                              
+#0        1987.146873   858.326286    420.107194   2226.699029  1338.974045           0.02           412
+#1        3037.962543   385.248630   1636.917210   4495.771989   968.890376           0.00          2649
+#2        1140.395363  3266.466710    182.900631   4096.794388  3034.900772           0.28          1541
+#3        1794.024195   475.494823   3270.246792   3976.372399  4709.556601           0.12          1072
+#4         444.212219   629.173858    141.655729   5134.705973   814.396458           0.25          3276
+
+#Cluster 0: Clientes com o menor limite. Não são bons pagadores. Menor nº de clientes
+#Cluster 1: Cliente que mais gastam. O foco deles é o saque. Piores pagadores. bom nº de clientes
+#Cluster 2: Cliente que gastam muito em compras. Melhores oagadores
+#Cluster 3: Cliente que gastam muito com saques. pagam as vezes
+#Cluster 4: Clientes que gastam pouco. Clientes com maior limite. Bons pagadores. Maior nº de clientes
+
+#A partir da classificação dos clusters, ou seja, o comportamento de cada um dos clientes, a empresa pode tomar medidas para aumentar seus lucros
