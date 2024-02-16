@@ -38,3 +38,30 @@ print(dbs)
 #Aplicando Índice Calinski
 calinski = metrics.calinski_harabasz_score(values, labels)
 print(calinski)
+
+#Validação relativa dos métodos
+def clusteringAlgorithm(n_clusters, datas):
+    kmeans = KMeans(n_clusters = n_clusters, n_init = 10, max_iter = 300)
+    labels = kmeans.fit_predict(datas)
+    s = metrics.silhouette_score(datas, labels, metric='euclidean')
+    dbs = metrics.davies_bouldin_score(datas, labels)
+    calinski = metrics.calinski_harabasz_score(datas, labels)
+    return s, dbs, calinski
+
+s1, dbs1, calinski1 = clusteringAlgorithm(3, values)
+print(s1, dbs1, calinski1)
+
+s2, dbs2, calinski2 = clusteringAlgorithm(5, values)
+print(s2, dbs2, calinski2)
+
+s3, dbs3, calinski3 = clusteringAlgorithm(10, values)
+print(s3, dbs3, calinski3)
+
+s4, dbs4, calinski4 = clusteringAlgorithm(20, values)
+print(s4, dbs4, calinski4)
+
+s5, dbs5, calinski5 = clusteringAlgorithm(50, values)
+print(s5, dbs5, calinski5)
+
+#A partir das comparações será escolhida a configurção com 5 clusters, ela se mostrou mais eficaz com os resultados de silhouette e davies_bouldin,
+#já o calinski_harabasz não teve uma variação significativa se comparado com a de 3 clusters
