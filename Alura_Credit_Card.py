@@ -95,8 +95,29 @@ plt.xlabel("PURCHASES")
 plt.ylabel("PAYMENTS")
 #plt.show()
 
-#Reapresentando graficamente os outros atributos, pois apenas com os anteriores não é possível tirar alguma conclusão
-#datas["cluster"] = labels
+#Representando graficamente os outros atributos, pois apenas com os anteriores não é possível tirar alguma conclusão
+datas["cluster"] = labels
 #sns.pairplot(datas[0:], hue="cluster") #As cores do gráfico serão diferenciadas pela coluna cluster
 #Neste caso por se tratar de um dataframe com muitas caracteriísticas, não fica prática a visualização gráfica, 
-#pois, fazendo a plotagem par a par, teremos um conjunto de 240 gráficos
+#pois, fazendo a plotagem par a par teremos um conjunto de 240 gráficos
+
+#Aplicando outra estratégia para a interpretação dos clusters
+print(datas.groupby("cluster").describe())
+
+centroids = kmeans.cluster_centers_
+print(centroids)
+
+#A partir do cálculos dos centróides, será avaliada a variâcia dos atributos. Serão escolhidos os atributos que apresentam
+#os maiores valores distintos, pois, eles possuem uma maior chance de revelar as particularidades de cada um dos clusters
+max = len(centroids[0])
+for i in range(max):
+    print(datas.columns.values[i], "\n{:.4f}".format(centroids[:, i].var()))
+#Escolhendo as variáveis:
+#BALANCE, PURCHASES, CASH_ADVANCE, CREDIT_LIMIT, PAYMENTS
+# 0.0224,    0.0196,       0.0225,       0.0360,   0.0280
+
+description = datas.groupby("cluster")[["BALANCE", "PURCHASES", "CASH_ADVANCE", "CREDIT_LIMIT", "PAYMENTS"]]
+nClients = description.size()
+description = description.mean()
+description['n_clients'] = nClients
+print(description)
