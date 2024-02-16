@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 from sklearn.preprocessing import Normalizer
 from sklearn.cluster import KMeans
 from sklearn import metrics
@@ -87,3 +89,14 @@ print(sSet3, dbsSet3, calinskiSet3)
 
 #Como os resultados são parecidos, evidencia que o cluster é estável
 
+#Representando graficamente os clustes pelos atributos PURCHASES(valor gasto) e PAYMENTS(Valor pago)
+plt.scatter(datas['PURCHASES'], datas['PAYMENTS'], c=labels, s=5, cmap='rainbow')
+plt.xlabel("PURCHASES")
+plt.ylabel("PAYMENTS")
+#plt.show()
+
+#Reapresentando graficamente os outros atributos, pois apenas com os anteriores não é possível tirar alguma conclusão
+#datas["cluster"] = labels
+#sns.pairplot(datas[0:], hue="cluster") #As cores do gráfico serão diferenciadas pela coluna cluster
+#Neste caso por se tratar de um dataframe com muitas caracteriísticas, não fica prática a visualização gráfica, 
+#pois, fazendo a plotagem par a par, teremos um conjunto de 240 gráficos
